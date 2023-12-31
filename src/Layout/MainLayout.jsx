@@ -3,7 +3,7 @@ import Drawer from "../Components/Drawer";
 
 const MainLayout = () => {
   return (
-    <div className="font-['Lato']">
+    <div className="font-['Work_Sans']">
       <Drawer>
         <Outlet></Outlet>
       </Drawer>
