@@ -33,7 +33,7 @@ const AddAProject = () => {
         const res = await axiosPublic.post("/cards", cardData)
         if(res?.data?.insertedId){
           setLoading(false)
-          toast.success("Your card added to DB.")
+          toast.success("Your project has been added.")
           navigate("/")
         }
       } catch (error) {

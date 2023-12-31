@@ -1,9 +1,11 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const ProjectDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
   const [card, setCard] = useState({});
 
@@ -14,6 +16,30 @@ const ProjectDetails = () => {
     };
     data();
   }, [axiosPublic, id]);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosPublic.delete(`/cards/${id}`);
+        if (res?.data?.deletedCount) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Player has been deleted.",
+            icon: "success",
+          });
+          navigate("/");
+        }
+      }
+    });
+  };
 
   return (
     <div className="p-10 h-screen">
@@ -45,8 +71,18 @@ const ProjectDetails = () => {
             </p>
           </div>
           <div className="flex justify-end items-center gap-4 mt-4">
-            <Link to={`/updateProject/${card?._id}`} className="btn btn-outline text-black">Update</Link>
-            <button className="btn btn-warning">Delete</button>
+            <Link
+              to={`/updateProject/${card?._id}`}
+              className="btn btn-outline text-black"
+            >
+              Update
+            </Link>
+            <button
+              onClick={() => handleDelete(card?._id)}
+              className="btn btn-warning"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
