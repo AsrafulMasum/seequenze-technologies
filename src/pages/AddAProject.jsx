@@ -28,6 +28,8 @@ const AddAProject = () => {
       try {
         const cardData = {
           author: data?.author,
+          title: data?.title,
+          description: data?.description,
           image_url: photo,
         };
         const res = await axiosPublic.post("/cards", cardData)
@@ -56,6 +58,14 @@ const AddAProject = () => {
           required
         />
 
+        <input
+          {...register("title", { required: true })}
+          className="w-full h-11 outline-none px-5 mt-4 bg-white border border-[#D0D0D0] rounded text-sm"
+          type="text"
+          placeholder="Title"
+          required
+        />
+
         <label
           htmlFor="dropzone-file"
           className="flex items-center px-3 py-3 mx-auto mt-4 text-center bg-white border border-dashed border-[#D0D0D0] rounded cursor-pointer"
@@ -67,6 +77,14 @@ const AddAProject = () => {
             required
           />
         </label>
+
+        <input
+          {...register("description", { required: true })}
+          className="w-full h-11 outline-none px-5 mt-4 bg-white border border-[#D0D0D0] rounded text-sm"
+          type="text"
+          placeholder="Description"
+          required
+        />
 
         <button className="btn w-full mt-4 bg-[#FA782F] hover:bg-[#FA782F] rounded border-none text-white">
         {loading ? (

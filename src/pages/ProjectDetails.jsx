@@ -60,14 +60,10 @@ const ProjectDetails = () => {
               tabIndex="0"
               role="link"
             >
-              I Built A Successful Blog In One Year
+              {card?.title}
             </p>
             <p className="mt-2 text-sm text-gray-600">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie
-              parturient et sem ipsum volutpat vel. Natoque sem et aliquam
-              mauris egestas quam volutpat viverra. In pretium nec senectus
-              erat. Et malesuada lobortis. mauris egestas quam volutpat viverra.
-              In pretium nec senectus erat. Et malesuada lobortis.
+              {card?.description}
             </p>
           </div>
           <div className="flex justify-end items-center gap-4 mt-4">

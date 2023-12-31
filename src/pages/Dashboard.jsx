@@ -40,8 +40,9 @@ const Dashboard = () => {
             </div>
             <div className="card-body items-center text-center py-3 gap-0">
               <h2 className="font-semibold text-black">{card?.author}</h2>
+              <h2 className="font-semibold">{card?.title}</h2>
               <p className="text-[#FA782F] font-semibold text-sm">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                {card?.description}
               </p>
             </div>
           </Link>
