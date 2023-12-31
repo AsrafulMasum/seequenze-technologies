@@ -1,21 +1,31 @@
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { ImSpinner9 } from "react-icons/im";
-import { useState } from "react";
 
 const imgHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`;
 
-const AddAProject = () => {
-  const navigate = useNavigate()
+const UpdateProject = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  const { register, handleSubmit } = useForm();
+  const [card, setCard] = useState({});
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const data = async () => {
+      const res = await axiosPublic(`/cards/${id}`);
+      setCard(res.data);
+    };
+    data();
+  }, [axiosPublic, id]);
+  const { register, handleSubmit } = useForm();
+
   const onSubmit = async (data) => {
-    setLoading(true)
+    setLoading(true);
     const imageFile = { image: data?.image[0] };
     const res = await axiosPublic.post(imgHostingApi, imageFile, {
       headers: {
@@ -30,11 +40,11 @@ const AddAProject = () => {
           author: data?.author,
           image_url: photo,
         };
-        const res = await axiosPublic.post("/cards", cardData)
-        if(res?.data?.insertedId){
-          setLoading(false)
-          toast.success("Your card added to DB.")
-          navigate("/")
+        const res = await axiosPublic.put(`/cards/${id}`, cardData);
+        if (res?.data?.modifiedCount) {
+          setLoading(false);
+          toast.success("Your project has been updated.");
+          navigate("/");
         }
       } catch (error) {
         setLoading(false)
@@ -45,11 +55,12 @@ const AddAProject = () => {
   return (
     <div className="bg-[#F8F8F8] pt-10 min-h-screen">
       <h2 className="text-4xl font-semibold text-black mt-4 mb-6 text-center">
-        Add A Project
+        Update Your Project
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="w-2/3 mx-auto">
         <input
           {...register("author", { required: true })}
+          defaultValue={card?.author}
           className="w-full h-11 outline-none px-5 bg-white border border-[#D0D0D0] rounded text-sm"
           type="text"
           placeholder="Name"
@@ -69,10 +80,10 @@ const AddAProject = () => {
         </label>
 
         <button className="btn w-full mt-4 bg-[#FA782F] hover:bg-[#FA782F] rounded border-none text-white">
-        {loading ? (
+          {loading ? (
             <ImSpinner9 className="animate-spin text-lg"></ImSpinner9>
           ) : (
-            "Add A Project"
+            "Update"
           )}
         </button>
       </form>
@@ -80,4 +91,4 @@ const AddAProject = () => {
   );
 };
 
-export default AddAProject;
+export default UpdateProject;
