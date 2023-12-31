@@ -1,17 +1,18 @@
 import PropTypes from "prop-types";
 import { RiMenu2Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Drawer = ({ children }) => {
   return (
     <div className="bg-[#F8F8F8]">
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content relative">
+        <div className="drawer-content">
           <label
             htmlFor="my-drawer-2"
-            className="btn btn-neutral drawer-button lg:hidden absolute left-2 top-2"
+            className="btn btn-neutral drawer-button lg:hidden sticky left-2 top-2"
           >
-            <RiMenu2Line></RiMenu2Line>
+            <RiMenu2Line className="text-xl"></RiMenu2Line>
           </label>
           {children}
         </div>
@@ -24,6 +25,7 @@ const Drawer = ({ children }) => {
           <div className="menu p-4 w-80 min-h-full bg-gray-700 lg:bg-white text-base-content flex flex-col justify-between">
             {/* Sidebar content here */}
             <div>
+              {/* logo */}
               <ul className="flex justify-center items-center pb-4 border-b-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -66,9 +68,10 @@ const Drawer = ({ children }) => {
                   />
                 </svg>
               </ul>
+              {/* Links */}
               <ul className="p-4 pb-4 border-b-2">
                 <li>
-                  <a>
+                  <Link to="/">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="28"
@@ -96,7 +99,7 @@ const Drawer = ({ children }) => {
                     <span className="text-[#FA782F] font-semibold">
                       My Projects
                     </span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a>

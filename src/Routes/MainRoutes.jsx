@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import ErrorPage from "../pages/ErrorPage";
 import Dashboard from "../pages/Dashboard";
+import AddAProject from "../pages/AddAProject";
 
 const MainRoutes = createBrowserRouter([
   {
@@ -12,6 +13,14 @@ const MainRoutes = createBrowserRouter([
       {
         index: true,
         element: <Dashboard></Dashboard>
+      },
+      {
+        path: "addAProject",
+        element: <AddAProject></AddAProject>
+      },
+      {
+        path: "addAProject",
+        element: <AddAProject></AddAProject>
       },
     ],
   },
